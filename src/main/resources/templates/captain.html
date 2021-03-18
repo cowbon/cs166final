@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="author" content="owwwlab.com">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         
-
         <!--CSS styles-->
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">  
@@ -44,41 +43,33 @@
     <body>
         <div class="container">
                   <div style="text-align:center">
-                    <h2 id="contact">Add Cruise Information</h2>
+                    <h2 id="contact">Captain</h2>
                   </div>
                   <div class="row">
                     <!--div class="column">
                       <img src="img/footer.jpg" style="width:100%">
                     <!--/div-->
                     <div class="row">
-                      <form method=”POST” enctype=”multipart/form-data” name=”BookingForm” onclick="window.location.href=‘index.html‘">
-                        <label for="fname">cost</label>
-                        <input type="text" id="fname" name="cruise id" placeholder="type in cost">
-                        <label for="lname">number of stops</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in number of stops">
-                        <label for="lname">arrival port</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in arrival port">
-                        <label for="lname">departure port</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in departure port">
-                        <label for="lname">ship id</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in ship id">
-                        <label for="lname">captain id</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in captain id">
-                        <input type="submit" value="Submit" onClick="bt_submit_onclick()">
-                      </form>
-                      <div style="text-align:center">
+                      <form method=”POST” enctype=”multipart/form-data” name=”EmailForm” onclick="window.location.href=‘index.html‘">
+                        <label for="fname">fullname</label>
+                        <input type="text" id="fname" name="cruise id" placeholder="type in fullname">
+                        <label for="lname">nationality</label>
+                        <input type="text" id="lname" name="ship id" placeholder="type in nationality">
+                        <input type="submit" value="Submit" onClick="window.location.href=‘index">
+                        <div style="text-align:center">
                           <p>   </p>
-                          <a href="Staff.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
+                          <a href="staff" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
+                      </form>
                       <script type="text/javascript">
-2                          $(function($) {
-3                           // 登錄點擊
-4                          $("#loging").click(function() {
-5                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
-6                             window.location.href =‘index1.html‘;  
-7                                });
-8                             });
-9                      </script>
+                          $(function($) {
+                           // 登錄點擊
+                          $("#loging").click(function() {
+                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
+                             window.location.href =‘index1.html‘;  
+                                });
+                             });
+                      </script>
                     </div>
                   </div>
                 </div>

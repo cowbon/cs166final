@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="author" content="owwwlab.com">
@@ -44,7 +44,8 @@
     <body>
         <div class="container">
                   <div style="text-align:center">
-                    <h2 id="contact">Customer Action</h2>
+                    <h2 id="contact">Staff</h2>
+                    <p>Select your action</p>
                   </div>
                   <div class="row">
                     <!--div class="column">
@@ -53,18 +54,22 @@
                     <div class="row">
                       <div style="text-align:center">
                           <p>   </p>
-                          <a href="booking.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add Booking</a>
+                          <a href="ship" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ship</a>
                       </div>
                       <div style="text-align:center">
                           <p>   </p>
-                          <a href="delete.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Delete Booking</a>
+                          <a href="captain" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Captain</a>
                       </div>
                       <div style="text-align:center">
                           <p>   </p>
-                          <a href="Main.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
+                          <a href="cruise" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Cruise</a>
+                      </div>
+                      <div style="text-align:center">
+                          <p>   </p>
+                          <a href="index" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                         </div>
                       <script type="text/javascript">
-                          $(function($) {
+                           $(function($) {
                            // 登錄點擊
                           $("#loging").click(function() {
                             //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)

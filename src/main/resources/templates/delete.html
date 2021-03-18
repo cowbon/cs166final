@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="author" content="owwwlab.com">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         
-        
+
         <!--CSS styles-->
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">  
@@ -44,7 +44,7 @@
     <body>
         <div class="container">
                   <div style="text-align:center">
-                    <h2 id="contact">Booking</h2>
+                    <h2 id="contact">Delete Booking</h2>
                   </div>
                   <div class="row">
                     <!--div class="column">
@@ -54,8 +54,8 @@
                       <form method=”POST” enctype=”multipart/form-data” name=”BookingForm” onclick="window.location.href=‘index.html‘">
                         <label for="fname">Cruise id</label>
                         <input type="text" id="fname" name="cruise id" placeholder="type in cruise id">
-                        <label for="lname">Ship id</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in ship id">
+                        <label for="lname">Customer id</label>
+                        <input type="text" id="lname" name="ship id" placeholder="type in customer id">
                         <input type="submit" value="Submit" onClick="bt_submit_onclick()">
                       </form>
                       <div style="text-align:center">
