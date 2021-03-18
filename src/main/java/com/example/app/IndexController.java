@@ -82,7 +82,7 @@ public class IndexController {
 		return -1;
 	}
 	
-	@GetMapping("/")
+	@GetMapping(value={"/", "/index", ""})
 	public String index() {
 		return "index";
 	}
@@ -166,7 +166,6 @@ public class IndexController {
 		String age = request.getParameter("age");
 		String seats = request.getParameter("seats");
 		LOGGER.info("model=" + model + " make=" + make + " age=" + age + " seats=" + seats);	
-		LOGGER.info("INSERT INTO Ship( make, model, age,seats) VALUES("+ "'" + make + "', '" + model + "'," + age + "," + seats + ");");
 
 		try {
 			executeUpdate("INSERT INTO Ship(make, model, age,seats) VALUES("+ "'" + make + "', '" + model + "'," + age + "," + seats + ");");
@@ -181,7 +180,7 @@ public class IndexController {
 	public ResponseEntity<?> addCaptain(HttpServletRequest request) {
 		String fullname = request.getParameter("fullname");
 		String nationality = request.getParameter("nationality");
-
+		LOGGER.info("fullname=" + fullname + " nationality=" + nationality + ";");
 		try {
 			executeUpdate("INSERT INTO Captain(fullname, nationality) VALUES("+ "'" + fullname + "', '" + nationality + "');");
 			return ResponseEntity.ok().body(null);
@@ -196,10 +195,15 @@ public class IndexController {
 	public ResponseEntity<?> bookTrip(HttpServletRequest request) {
 		String cruiseId = request.getParameter("cruise_id");
 		String customerId = request.getParameter("customer_id");
-		String query = "Select (Select Count(*) From CruiseInfo, Ship Where CruiseInfo.ship_id = Ship.id And CruiseInfo.cruise_id=" + cruiseId + " And Ship.seats)- (Select Count(*) From Reservation Where Reservation.cid=" + cruiseId + " And Reservation.status='R');";
+		String query = "Select (Select Ship.seats From CruiseInfo, Ship Where CruiseInfo.ship_id = Ship.id And CruiseInfo.cruise_id=" + cruiseId + ")- (Select Count(*) From Reservation Where Reservation.cid=" + cruiseId + ");";
 		try {
 			List<List<String>> res = executeQueryAndReturnResult(query);
 			int remaining = Integer.parseInt(res.get(0).get(0));
+			if (remaining < 1)
+				executeUpdate("insert into Reservation (ccid, cid, status) values (" + customerId + "," + cruiseId + ",'W');");
+			else
+				executeUpdate("insert into Reservation (ccid, cid, status) values (" + customerId + "," + cruiseId + ",'R');");
+				
 			return ResponseEntity.ok(null);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -207,10 +211,10 @@ public class IndexController {
 		}
 	}
 	
-	@GetMapping(value = "/repairs/{ship_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> repairs(@RequestParam("ship_id") String ship) {
+	@GetMapping(value = "/repairs", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> repairs() {
 		try {
-			List<List<String>> ret = executeQueryAndReturnResult("select Ship.id, count(*) as c from Repairs, Ship where Repairs.ship_id =" + ship + " group by Ship.id order by c desc;");
+			List<List<String>> ret = executeQueryAndReturnResult("select ship_id, count(ship_id) as c from Repairs group by ship_id order by c desc;");
 			List<HashMap<String, String>> resp = new ArrayList<HashMap<String, String>>();
 			for (List<String> arr:ret) {
 				HashMap<String, String> tmp = new HashMap<String, String>();
@@ -227,17 +231,17 @@ public class IndexController {
 	}
 
 	@GetMapping(value = "/seats/{cruise_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> seats(@RequestParam("cruise_id") String cruiseId, @RequestParam("date") String date) {
+	public ResponseEntity<?> seats(@PathVariable("cruise_id") String cruiseId, @RequestParam("date") String date) {
+		LOGGER.info(date);
 		try {
-			List<List<String>> ret = executeQueryAndReturnResult("select (select seats from Ship, CruiseInfo, Schedule where Schedule.cruiseNum = CruiseInfo.cruise_id and CruiseInfo.ship_id = Ship.id and departure_time = date( " + date + ") and cnum = " + cruiseId + ") - (select count(*) from Reservation, Schedule where Reservation.cid = Schedule.cnum and Schedule.cruiseNum = " + cruiseId + " and departure_time = date(" + date + "))");
-			List<HashMap<String, String>> resp = new ArrayList<HashMap<String, String>>();
-			for (List<String> arr:ret) {
-				HashMap<String, String> tmp = new HashMap<String, String>();
-				tmp.put("status", arr.get(0));
-				tmp.put("count", arr.get(1));
-				resp.add(tmp);
+			List<List<String>> ret = executeQueryAndReturnResult("select (select seats from Ship, CruiseInfo, Schedule where Schedule.cruiseNum = CruiseInfo.cruise_id and CruiseInfo.ship_id = Ship.id and departure_time = '" + date + "' and Schedule.cruiseNum = " + cruiseId + ") - (select count(*) from Reservation, Schedule where Reservation.cid = Schedule.cruiseNum and Schedule.cruiseNum = " + cruiseId + " and departure_time = '" + date + "')");
+			HashMap<String, String> resp = new HashMap<String, String>();
+			if (ret.size() < 1) {
+				resp.put("status", "No cruise on date " + date);
+				return ResponseEntity.ok(resp);
 			}
-				
+			int remaining = Integer.parseInt(ret.get(0).get(0));
+			resp.put("available_seats", String.valueOf(remaining < 0 ? 0 : remaining));
 			return ResponseEntity.ok(resp);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -245,10 +249,10 @@ public class IndexController {
 		}
 	}
 
-	@GetMapping(value = "/pessengers/{cruise_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> pessengers(@RequestParam("cruise_id") String cruiseId) {
+	@GetMapping(value = "/passengers/{cruise_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> passengers(@PathVariable("cruise_id") String cruiseId) {
 		try {
-			List<List<String>> ret = executeQueryAndReturnResult("select status, count(*) from Reservation where cnum = " + cruiseId + " group by status");
+			List<List<String>> ret = executeQueryAndReturnResult("select status, count(status) from Reservation where cid = " + cruiseId + " group by status");
 			List<HashMap<String, String>> resp = new ArrayList<HashMap<String, String>>();
 			for (List<String> arr:ret) {
 				HashMap<String, String> tmp = new HashMap<String, String>();
@@ -265,7 +269,7 @@ public class IndexController {
 	}
 
 	@DeleteMapping("/reservation/{customer_id}/{cruise_id}")
-	public ResponseEntity<?> cancel(@RequestParam("customer_id") String customerId, @RequestParam("cruise_id") String cruiseId) {
+	public ResponseEntity<?> cancel(@PathVariable("customer_id") String customerId, @PathVariable("cruise_id") String cruiseId) {
 		try {
 			executeUpdate("DELETE FROM Reservation WHERE ccid=" + customerId + " and cid=" + cruiseId + ";");
 
