@@ -49,9 +49,9 @@
                   <div class="row">
                     <!--div class="column">
                       <img src="img/footer.jpg" style="width:100%">
-                    <!--/div-->
+                    </div-->
                     <div class="row">
-                      <form method=”POST” enctype=”multipart/form-data” name=”EmailForm” onclick="window.location.href=‘index.html‘">
+                      <form id="ship_form" enctype=”multipart/form-data” name="EmailForm">
                         <label for="fname">Model</label>
                         <input type="text" id="fname" name="model" placeholder="type in Model of Ship">
                         <label for="lname">Make</label>
@@ -60,20 +60,18 @@
                         <input type="text" id="fname" name="age" placeholder="type in age of ship">
                         <label for="lname">Seats</label>
                         <input type="text" id="lname" name="seats" placeholder="type in number of seats">
-                        <input type="submit" value="Submit" onClick="">
+                        <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
                           <a href="staff" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
                       </form>
                       <script type="text/javascript">
-                          $(function($) {
-                           // 登錄點擊
-                          $("#loging").click(function() {
-                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
-                             window.location.href =‘index1.html‘;  
-                                });
-                             });
+			   $("#ship_form").submit((event) => {
+				event.preventDefault();
+				console.log($(this).serialize());
+				$.post("/addship", $(this).serialize());
+			   });
                       </script>
                     </div>
                   </div>

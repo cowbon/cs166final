@@ -49,36 +49,34 @@
                   <div class="row">
                     <!--div class="column">
                       <img src="img/footer.jpg" style="width:100%">
-                    <!--/div-->
+                    </div-->
                     <div class="row">
-                      <form method=”POST” enctype=”multipart/form-data” name=”BookingForm” onclick="window.location.href=‘index.html‘">
+                      <form id="cruise_form" enctype=”multipart/form-data” name="BookingForm">
                         <label for="fname">cost</label>
-                        <input type="text" id="fname" name="cruise id" placeholder="type in cost">
+                        <input type="text" id="fname" name="cost" placeholder="type in cost">
                         <label for="lname">number of stops</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in number of stops">
+                        <input type="text" id="lname" name="num_stop" placeholder="type in number of stops">
                         <label for="lname">arrival port</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in arrival port">
+                        <input type="text" id="lname" name="arrival_port" placeholder="type in arrival port">
                         <label for="lname">departure port</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in departure port">
+                        <input type="text" id="lname" name="departure_port" placeholder="type in departure port">
                         <label for="lname">ship id</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in ship id">
+                        <input type="text" id="lname" name="ship_id" placeholder="type in ship id">
                         <label for="lname">captain id</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in captain id">
-                        <input type="submit" value="Submit" onClick="bt_submit_onclick()">
+                        <input type="text" id="lname" name="captain_id" placeholder="type in captain id">
+                        <input type="submit" value="Submit" onClick="/addcruise">
                       </form>
+			<script language="javascript" type="text/javascript">
+			   $("#cruise_form").submit((event) => {
+				event.preventDefault();
+				console.log($(this).serialize());
+				$.post("/addcruise", $(this).serialize());
+			   });
+			</script>
                       <div style="text-align:center">
                           <p>   </p>
                           <a href="staff" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
-                      <script type="text/javascript">
-2                          $(function($) {
-3                           // 登錄點擊
-4                          $("#loging").click(function() {
-5                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
-6                             window.location.href =‘index1.html‘;  
-7                                });
-8                             });
-9                      </script>
                     </div>
                   </div>
                 </div>

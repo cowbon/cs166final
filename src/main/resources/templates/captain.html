@@ -48,28 +48,26 @@
                   <div class="row">
                     <!--div class="column">
                       <img src="img/footer.jpg" style="width:100%">
-                    <!--/div-->
+                    </div-->
                     <div class="row">
-                      <form method=”POST” enctype=”multipart/form-data” name=”EmailForm” onclick="window.location.href=‘index.html‘">
+                      <form id="captain_form" enctype=”multipart/form-data” name="EmailForm">
                         <label for="fname">fullname</label>
-                        <input type="text" id="fname" name="cruise id" placeholder="type in fullname">
+                        <input type="text" id="fname" name="fullname" placeholder="type in fullname">
                         <label for="lname">nationality</label>
-                        <input type="text" id="lname" name="ship id" placeholder="type in nationality">
-                        <input type="submit" value="Submit" onClick="window.location.href=‘index">
+                        <input type="text" id="lname" name="nationality" placeholder="type in nationality">
+                        <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
                           <a href="staff" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
                       </form>
-                      <script type="text/javascript">
-                          $(function($) {
-                           // 登錄點擊
-                          $("#loging").click(function() {
-                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
-                             window.location.href =‘index1.html‘;  
-                                });
-                             });
-                      </script>
+			<script language="javascript" type="text/javascript">
+			   $("#captain_form").submit((event) => {
+				event.preventDefault();
+				console.log($(this).serialize());
+				$.post("/addcaptain", $(this).serialize());
+			   });
+			</script>
                     </div>
                   </div>
                 </div>
