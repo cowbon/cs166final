@@ -56,7 +56,7 @@
                         <input type="text" id="fname" name="cruise id" placeholder="type in cruise id">
                         <label for="fname">Status</label>
                         <input type="text" id="fname" name="status" placeholder="type in status">
-                        <input type="submit" value="Submit" onClick="bt_submit_onclick()">
+                        <input type="submit" value="Submit" onClick="randomData()">
                         <div style="text-align:center">
                           <p>   </p>
                           <a href="index" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
@@ -64,36 +64,47 @@
                         <table class="table table-condensed" id="table"  data-toggle="table" data-toolbar="#toolbar" data-height="400" data-search="true" >
                         <thead class="thead-light">
                           <tr>
-                            <th data-field="id">Cruise id</th>
                             <th data-field="status">Status</th>
                             <th data-field="number">Number of passenger</th>
                           </tr>
                         </thead>
+                        
                       </table>
-                        / / Here introduced jquery file, this file is local, you need to download and introduce
+                      <script type="text/javascript">
+                          var TestString='Have a good time.';
+                          var test=[{"count": "2","status": "C"},{"count": "3", "status": "W"}]
+                          rows=[]
+                          for (var i = 0; i < test.length; i++) {
+                               rows.push(test[i])
+                               document.write(test[i]['count']);
+                               document.write('  ');
+                               document.write(test[i]['status']);
+                               document.write('<br>');
+                          }
+　                        document.write('Welcome to Wibibi.<br>'+TestString);
+                      </script>
+                          
                       <script src="./js/jquery-1.12.4.min.js"></script>
-                        / / Here you need to introduce the bootstrap table js file
                       <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
                       <script>
                       // This method simulates printing random backend data. The structure of the print is shown above, loading data content prints.
-                      function randomData() {
-                      var startId = ~~(Math.random() * 100)
-                      var rows = []
-                      for (var i = 0; i < 10; i++) {
-                          rows.push({
-                           id: startId + i,
-                           name: 'test' + (startId + i),
-                           price: '$' + (startId + i),
-                           price1: '$' + (startId + i),
-                           price2: '$' + (startId + i),
-                           price3: '$' + (startId + i)
-                      })
-                    }
+                                              
+                       
+                      var test=[{"count": "2","status": "C"},{"count": "3", "status": "W"}]
+                      function randomData(input) {
+                      rows=[]
+                      for (var i = 0; i < input.length; i++) {
+                          rows.push(input[i])
+                      
+                      }
+                    
                    console.log(rows)
                    return rows;
-                    }
  
-            
+                      }
+                          
+                      
+                          
                 $(function() {
                          / / Core content, bootstrapTable comes with a method, the data in randomdata is loaded as in the table, the key value in the data needs to correspond to the data-field written in the header.
                 $('#table').bootstrapTable('append',randomData())
