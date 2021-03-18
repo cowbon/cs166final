@@ -68,19 +68,21 @@
                             <th data-field="number">Number of passenger</th>
                           </tr>
                         </thead>
-                        <script type="text/javascript">
+                        
+                      </table>
+                      <script type="text/javascript">
                           var TestString='Have a good time.';
                           var test=[{"count": "2","status": "C"},{"count": "3", "status": "W"}]
                           rows=[]
                           for (var i = 0; i < test.length; i++) {
                                rows.push(test[i])
                                document.write(test[i]['count']);
+                               document.write('  ');
                                document.write(test[i]['status']);
+                               document.write('<br>');
                           }
 　                        document.write('Welcome to Wibibi.<br>'+TestString);
-                        </script>
-                      </table>
-                          
+                      </script>
                           
                       <script src="./js/jquery-1.12.4.min.js"></script>
                       <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
