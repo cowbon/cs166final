@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="author" content="owwwlab.com">
@@ -44,43 +44,33 @@
     <body>
         <div class="container">
                   <div style="text-align:center">
-                    <h2 id="contact">Main</h2>
-                    <p>Select your identification and want you want</p>
+                    <h2 id="contact">Booking</h2>
                   </div>
                   <div class="row">
                     <!--div class="column">
                       <img src="img/footer.jpg" style="width:100%">
                     <!--/div-->
                     <div class="row">
+                      <form method=”POST” enctype=”multipart/form-data” name=”BookingForm” onclick="window.location.href=‘index.html‘">
+                        <label for="fname">Cruise id</label>
+                        <input type="text" id="fname" name="cruise id" placeholder="type in cruise id">
+                        <label for="lname">Ship id</label>
+                        <input type="text" id="lname" name="ship id" placeholder="type in ship id">
+                        <input type="submit" value="Submit" onClick="bt_submit_onclick()">
+                      </form>
                       <div style="text-align:center">
                           <p>   </p>
-                          <a href="CustomerSelection.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Customer</a>
-                      </div>
-                      <div style="text-align:center">
-                          <p>   </p>
-                          <a href="Staff.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Staffs</a>
-                      </div>
-                      <div style="text-align:center">
-                          <p>   </p>
-                          <a href="list cruise.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">List info of Cruise</a>
-                      </div>
-                      <div style="text-align:center">
-                          <p>   </p>
-                          <a href="list ship.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">List info of Ship</a>
-                      </div>
-                      <div style="text-align:center">
-                          <p>   </p>
-                          <a href="list passenger.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">List info of passenger</a>
+                          <a href="CustomerSelection.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
                       <script type="text/javascript">
-                           $(function($) {
-                           // 登錄點擊
-                          $("#loging").click(function() {
-                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
-                             window.location.href =‘index1.html‘;  
-                                });
-                             });
-                      </script>
+2                          $(function($) {
+3                           // 登錄點擊
+4                          $("#loging").click(function() {
+5                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
+6                             window.location.href =‘index1.html‘;  
+7                                });
+8                             });
+9                      </script>
                     </div>
                   </div>
                 </div>

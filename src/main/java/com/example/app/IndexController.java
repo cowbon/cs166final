@@ -2,6 +2,7 @@ package com.example.app;
 
 
 import java.sql.*;
+import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 
-@RestController
+@Controller
 public class IndexController {
 	private Connection _connection = null;
 	private static final String dbport = "5432";
@@ -91,9 +92,48 @@ public class IndexController {
 		return "staff";
 	}
 
-	@GetMapping("/customer")
+	@GetMapping("/ship")
+	public String ship() {
+		return "ship";
+	}
+
+	@GetMapping("/cruise")
+	public String cruise() {
+		return "cruise";
+	}
+	@GetMapping("/CustomerSelection")
 	public String customer() {
-		return "customer";
+		return "CustomerSelection";
+	}
+
+	@GetMapping("/list cruise")
+	public String cruises() {
+		return "list cruise";
+	}
+
+	@GetMapping("/list ship")
+	public String ships() {
+		return "list ship";
+	}
+
+	@GetMapping("/captain")
+	public String captains() {
+		return "captain";
+	}
+
+	@GetMapping("/booking")
+	public String booking() {
+		return "booking";
+	}
+
+	@GetMapping("/delete")
+	public String delete() {
+		return "delete";
+	}
+
+	@GetMapping("/list passenger")
+	public String passengers() {
+		return "list passenger";
 	}
 
 	@PostMapping("/addcruise")

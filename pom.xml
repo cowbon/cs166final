@@ -33,6 +33,11 @@
 		    <artifactId>postgresql</artifactId>
 		    <version>42.2.19</version>
 		</dependency>
+		<!-- Template Engine -->   
+		<dependency>         
+    			<groupId>org.springframework.boot</groupId>            
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>      
+		</dependency>
 		<dependency>
 		  <groupId>com.google.code.gson</groupId>
 		  <artifactId>gson</artifactId>
