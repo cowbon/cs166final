@@ -64,7 +64,6 @@
                         <table class="table table-condensed" id="table"  data-toggle="table" data-toolbar="#toolbar" data-height="400" data-search="true" >
                         <thead class="thead-light">
                           <tr>
-                            <th data-field="id">ID</th>
                             <th data-field="avaliable seats">Avaliable seats</th>
                           </tr>
                         </thead>
@@ -75,21 +74,10 @@
                       <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
                       <script>
                       // This method simulates printing random backend data. The structure of the print is shown above, loading data content prints.
-                      function randomData() {
-                      var startId = ~~(Math.random() * 100)
-                      var rows = []
-                      for (var i = 0; i < 10; i++) {
-                          rows.push({
-                           id: startId + i,
-                           name: 'test' + (startId + i),
-                           price: '$' + (startId + i),
-                           price1: '$' + (startId + i),
-                           price2: '$' + (startId + i),
-                           price3: '$' + (startId + i)
-                      })
-                    }
-                   console.log(rows)
-                   return rows;
+                      var test={"available_seat": null}
+                      function randomData(input) {
+                   console.log(['available_seat'])
+                   return input['available_seat'];
                     }
  
             

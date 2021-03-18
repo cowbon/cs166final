@@ -66,26 +66,24 @@
                             <th data-field="number of repairments">Number of repairments</th>
                           </tr>
                         </thead>
+                           
                       </table>
                         / / Here introduced jquery file, this file is local, you need to download and introduce
-                      <script src="./js/jquery-1.12.4.min.js"></script>
+                      
+                      <script src="./js/jquery-1.12.4.min.js"> </script>
                         / / Here you need to introduce the bootstrap table js file
                       <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
                       <script>
                       // This method simulates printing random backend data. The structure of the print is shown above, loading data content prints.
-                      function randomData() {
+                      var test=[{"times":"17","ship_id":"56"},{"times":"16","ship_id":"63"},{"times":"16","ship_id":"50"}]
+                      function randomData(input) {
                       var startId = ~~(Math.random() * 100)
                       var rows = []
-                      for (var i = 0; i < 10; i++) {
-                          rows.push({
-                           id: startId + i,
-                           name: 'test' + (startId + i),
-                           price: '$' + (startId + i),
-                           price1: '$' + (startId + i),
-                           price2: '$' + (startId + i),
-                           price3: '$' + (startId + i)
-                      })
-                    }
+                      for (var i = 0; i < arr.length; i++) {
+                          rows.push(input[i])
+                      
+                      }
+                    
                    console.log(rows)
                    return rows;
                     }
@@ -93,6 +91,8 @@
             
                 $(function() {
                          / / Core content, bootstrapTable comes with a method, the data in randomdata is loaded as in the table, the key value in the data needs to correspond to the data-field written in the header.
+                var test=[{"times":"17","ship_id":"56"},{"times":"16","ship_id":"63"},{"times":"16","ship_id":"50"}]
+                randomData(test)
                 $('#table').bootstrapTable('append',randomData())
                          // The following line of code adds style to the table, centering everything
                   $("td,th").addClass("text-center");
@@ -102,13 +102,8 @@
 
                       </form>
                       <script type="text/javascript">
-2                          $(function($) {
-3                           // 登錄點擊
-4                          $("#loging").click(function() {
-5                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
-6                             window.location.href =‘index1.html‘;  
-7                                });
-8                             });
+2                           var TestString='Have a good time.';
+　                             document.write('Welcome to Wibibi.<br>'+TestString);
 9                      </script>
                     </div>
                   </div>

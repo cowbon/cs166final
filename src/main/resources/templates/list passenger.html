@@ -64,7 +64,6 @@
                         <table class="table table-condensed" id="table"  data-toggle="table" data-toolbar="#toolbar" data-height="400" data-search="true" >
                         <thead class="thead-light">
                           <tr>
-                            <th data-field="id">Cruise id</th>
                             <th data-field="status">Status</th>
                             <th data-field="number">Number of passenger</th>
                           </tr>
@@ -76,24 +75,18 @@
                       <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
                       <script>
                       // This method simulates printing random backend data. The structure of the print is shown above, loading data content prints.
-                      function randomData() {
-                      var startId = ~~(Math.random() * 100)
-                      var rows = []
-                      for (var i = 0; i < 10; i++) {
-                          rows.push({
-                           id: startId + i,
-                           name: 'test' + (startId + i),
-                           price: '$' + (startId + i),
-                           price1: '$' + (startId + i),
-                           price2: '$' + (startId + i),
-                           price3: '$' + (startId + i)
-                      })
-                    }
+                      
+                      var test=[{"count": "2","status": "C"},{"count": "3", "status": "W"}]
+                      function randomData(input) {
+                      for (var i = 0; i < input.length; i++) {
+                          rows.push(input[i])
+                      
+                      }
+                    
                    console.log(rows)
                    return rows;
-                    }
  
-            
+                      }
                 $(function() {
                          / / Core content, bootstrapTable comes with a method, the data in randomdata is loaded as in the table, the key value in the data needs to correspond to the data-field written in the header.
                 $('#table').bootstrapTable('append',randomData())
