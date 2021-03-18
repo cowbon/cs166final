@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="author" content="owwwlab.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+
+        <!--CSS styles-->
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">  
+        <link rel="stylesheet" href="css/perfect-scrollbar-0.4.5.min.css">
+        <link rel="stylesheet" href="css/magnific-popup.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link id="theme-style" rel="stylesheet" href="css/styles/yellow.css">
+
+        
+        <!--/CSS styles-->
+        <!--Javascript files-->
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="js/TweenMax.min.js"></script>
+        <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+        <script type="text/javascript" src="js/jquery.carouFredSel-6.2.1-packed.js"></script>
+        <script type="text/javascript" src="js/modernizr.custom.63321.js"></script>
+        <script type="text/javascript" src="js/jquery.dropdownit.js"></script>
+
+        <script type="text/javascript" src="js/ScrollToPlugin.min.js"></script>
+
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
+
+        <script type="text/javascript" src="js/masonry.min.js"></script>
+
+        <script type="text/javascript" src="js/perfect-scrollbar-0.4.5.with-mousewheel.min.js"></script>
+        <script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
+
+        <script type="text/javascript" src="js/magnific-popup.js"></script>
+        <script type="text/javascript" src="js/custom.js"></script>
+        <!--/Javascript files-->
+
+    </head>
+    <body>
+        <div class="container">
+                  <div style="text-align:center">
+                    <h2 id="contact">List number of passenger by status and cruise</h2>
+                  </div>
+                  <div class="row">
+                    <!--div class="column">
+                      <img src="img/footer.jpg" style="width:100%">
+                    <!--/div-->
+                    <div class="row">
+                      <form method=”POST” enctype=”multipart/form-data” name=”BookingForm” onclick="window.location.href=‘index.html‘">
+                        <label for="fname">Cruise id</label>
+                        <input type="text" id="fname" name="cruise id" placeholder="type in cruise id">
+                        <label for="fname">Status</label>
+                        <input type="text" id="fname" name="status" placeholder="type in status">
+                        <input type="submit" value="Submit" onClick="bt_submit_onclick()">
+                        <div style="text-align:center">
+                          <p>   </p>
+                          <a href="Main.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
+                        </div>
+                        <table class="table table-condensed" id="table"  data-toggle="table" data-toolbar="#toolbar" data-height="400" data-search="true" >
+                        <thead class="thead-light">
+                          <tr>
+                            <th data-field="id">Cruise id</th>
+                            <th data-field="status">Status</th>
+                            <th data-field="number">Number of passenger</th>
+                          </tr>
+                        </thead>
+                      </table>
+                        / / Here introduced jquery file, this file is local, you need to download and introduce
+                      <script src="./js/jquery-1.12.4.min.js"></script>
+                        / / Here you need to introduce the bootstrap table js file
+                      <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
+                      <script>
+                      // This method simulates printing random backend data. The structure of the print is shown above, loading data content prints.
+                      function randomData() {
+                      var startId = ~~(Math.random() * 100)
+                      var rows = []
+                      for (var i = 0; i < 10; i++) {
+                          rows.push({
+                           id: startId + i,
+                           name: 'test' + (startId + i),
+                           price: '$' + (startId + i),
+                           price1: '$' + (startId + i),
+                           price2: '$' + (startId + i),
+                           price3: '$' + (startId + i)
+                      })
+                    }
+                   console.log(rows)
+                   return rows;
+                    }
+ 
+            
+                $(function() {
+                         / / Core content, bootstrapTable comes with a method, the data in randomdata is loaded as in the table, the key value in the data needs to correspond to the data-field written in the header.
+                $('#table').bootstrapTable('append',randomData())
+                         // The following line of code adds style to the table, centering everything
+                  $("td,th").addClass("text-center");
+             })
+        </script>                      </form>
+                      <script type="text/javascript">
+2                          $(function($) {
+3                           // 登錄點擊
+4                          $("#loging").click(function() {
+5                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
+6                             window.location.href =‘index1.html‘;  
+7                                });
+8                             });
+9                      </script>
+                    </div>
+                  </div>
+                </div>
+          </div>
+    </div>
+    <!-- Default code for Personal website -->
+    <!-- End of Code -->
+    </body>
+</html>
+
