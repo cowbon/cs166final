@@ -39,6 +39,7 @@
         <script type="text/javascript" src="js/magnific-popup.js"></script>
         <script type="text/javascript" src="js/custom.js"></script>
         <!--/Javascript files-->
+        
 
     </head>
     <body>
@@ -53,32 +54,61 @@
                     <div class="row">
                       <form id="ship_form" enctype=”multipart/form-data” name="EmailForm">
                         <label for="fname">Model</label>
-                        <input type="text" id="fname" name="model" placeholder="type in Model of Ship">
+                        <input type="text" id="1_name" name="model" placeholder="type in Model of Ship">
                         <label for="lname">Make</label>
-                        <input type="text" id="lname" name="make" placeholder="type in who make it">
+                        <input type="text" id="2_name" name="make" placeholder="type in who make it">
                         <label for="fname">Age</label>
-                        <input type="text" id="fname" name="age" placeholder="type in age of ship">
+                        <input type="text" id="3_name" name="age" placeholder="type in age of ship" onblur="validate1();">
                         <label for="lname">Seats</label>
-                        <input type="text" id="lname" name="seats" placeholder="type in number of seats">
+                        <input type="text" id="4_name" name="seats" placeholder="type in number of seats" onblur="validate2();">
                         <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
                           <a href="staff" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
-                      </form>
+                    </form>
+                    <script type="text/javascript">
+                             function validate1()
+                             {
+                                 var field1 = document.getElementById("3_name");
+                                 if (field1.value < 0 || !Number.isInteger(field1.values))
+                                 {
+                                        alert("value of Age," + field1.value + " is invalid");
+
+                                 // Change the value back to the previous valid answer
+                                 return false;
+                                 }
+
+                                 // Save the valid input
+                                 return true;
+                            };
+                            function validate2()
+                            {
+                                 var field1 = document.getElementById("4_name");
+                               if (field1.value < 0 || !Number.isInteger(field1.values))
+                               {
+                                  alert("value of Seats," + field1.value + " is invalid");
+
+                                  // Change the value back to the previous valid answer
+                                  return false;
+                                 }
+
+                            // Save the valid input
+                            return true;
+                            };
+                    </script>
                       <script type="text/javascript">
 			   $("#ship_form").submit((event) => {
 				event.preventDefault();
 				console.log($(this).serialize());
-                window.alert("insert "+$("#fname").val()+","+$("#lname").val());
+                window.alert("insert "+$("#1_name").val()+","+$("#2_name").val()+","+$("#3_name").val()+","+$("#4_name").val());
 				$.post("/addship", $(this).serialize());
 			   });
                       </script>
                     </div>
                   </div>
                 </div>
-          </div>
-    </div>
+          
     <!-- Default code for Personal website -->
     <!-- End of Code -->
     </body>

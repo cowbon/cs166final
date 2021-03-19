@@ -53,9 +53,9 @@
                     <div class="row">
                       <form id="cruise_form" enctype=”multipart/form-data” name="BookingForm">
                         <label for="fname">cost</label>
-                        <input type="text" id="1_name" name="cost" placeholder="type in cost">
+                        <input type="text" id="1_name" name="cost" placeholder="type in cost" onblur="validate1();">
                         <label for="lname">number of stops</label>
-                        <input type="text" id="2_name" name="num_stop" placeholder="type in number of stops">
+                        <input type="text" id="2_name" name="num_stop" placeholder="type in number of stops" onblur="validate2();">
                         <label for="lname">arrival port</label>
                         <input type="text" id="3_name" name="arrival_port" placeholder="type in arrival port">
                         <label for="lname">departure port</label>
@@ -66,6 +66,36 @@
                         <input type="text" id="6_name" name="captain_id" placeholder="type in captain id">
                         <input type="submit" value="Submit" onClick="/addcruise">
                       </form>
+            <script type="text/javascript">
+                  function validate1()
+                  {
+                     var field1 = document.getElementById("1_name");
+                     if (field1.value < 0 )
+                     {
+                           alert("Field1 value of " + field1.value + " is invalid");
+
+                          // Change the value back to the previous valid answer
+                         return false;
+                     }
+
+                     // Save the valid input
+                     return true;
+                  };
+                  function validate2()
+                  {
+                     var field1 = document.getElementById("2_name");
+                     if (field1.value < 0 || !Number.isInteger(field1.value))
+                     {
+                           alert("Field1 value of " + field1.value + " is invalid");
+
+                          // Change the value back to the previous valid answer
+                         return false;
+                     }
+
+                     // Save the valid input
+                     return true;
+                  };
+            </script>
 			<script language="javascript" type="text/javascript">
 			   $("#cruise_form").submit((event) => {
 				event.preventDefault();

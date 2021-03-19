@@ -71,18 +71,31 @@
 			  $("#cruise_form").submit((event)=>{
 				event.preventDefault();
 				$("#table > tbody").empty();
-			  	$.get($("#fname").val()+"/passengers").done((data) => {
+			  	$.get($("#fname").val()+"/passengers").done(
+                  (data) => {
 				  data.forEach((item) => {
 					$("#table").append('<tr><td>' + item['count'] + '</td><td>' + item['status'] + '</td></tr>');
+                
 				  });
-				})
-			  });
+				
+                 
+                  
+                  
+              }).fail((data) => {
+                 if (typeof data === 'string' || data instanceof String)
+                 {    alert("input is wrong");                         }
+                 
+                     
+              })
+			  })
+               
+                    
+            
                       </script>
                     </div>
                   </div>
                 </div>
           </div>
-    </div>
     <!-- Default code for Personal website -->
     <!-- End of Code -->
     </body>
