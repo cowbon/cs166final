@@ -50,9 +50,8 @@
                   <div class="row">
                     <!--div class="column">
                       <img src="img/footer.jpg" style="width:100%">
-                    <!--/div-->
+                    </div-->
                     <div class="row">   
-                        <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
                           <a href="index" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
@@ -66,12 +65,12 @@
                         </thead>
                           </table>
                       <script language="javascript" type="text/javascript">
-			      $("#ship_form").submit((event)=>{
-				    event.preventDefault();
+			      $(document).ready(()=>{
+				    //event.preventDefault();
 				   $("#table > tbody").empty();
 			  	   $.get("/repairs").done((data) => {
 				      data.forEach((item) => {
-					$("#table").append('<tr><td>' + item['ship_id'] + '</td></td>'+ item['times']+ '</td></tr>');
+					$("#table").append('<tr><td>' + item['ship_id'] + '</td><td>'+ item['times']+ '</td></tr>');
 				  });
 				})
 			  });

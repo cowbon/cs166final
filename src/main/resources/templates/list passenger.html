@@ -74,8 +74,7 @@
 			  	$.get($("#fname").val()+"/passengers").done(
                   (data) => {
 				  data.forEach((item) => {
-					$("#table").append('<tr><td>' + item['count'] + '</td><td>' + item['status'] + '</td></tr>');
-                
+					$("#table").append('<tr><td>' + item['status'] + '</td><td>' + item['count'] + '</td></tr>');
 				  });
 				
                  
