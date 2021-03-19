@@ -55,7 +55,7 @@
                         <label for="fname">Cruise id</label>
                         <input type="text" id="fname" name="cruise_id" placeholder="type in cruise id">
                         <label for="lname">Customer id</label>
-                        <input type="text" id="lname" name="customer id" placeholder="type in customer id">
+                        <input type="text" id="lname" name="customer_id" placeholder="type in customer id">
                         <input type="submit" value="Submit">
                       </form>
                       <div style="text-align:center">
@@ -66,6 +66,7 @@
 			   $("#booking_form").submit((event) => {
 				event.preventDefault();
 				console.log($(this).serialize());
+                window.alert("insert "+$("#fname").val()+","+$("#lname").val());
 				$.post("/booktrip", $(this).serialize());
 			   });
                       </script>

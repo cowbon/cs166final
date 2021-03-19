@@ -52,10 +52,10 @@
                       <img src="img/footer.jpg" style="width:100%">
                     <!--/div-->
                     <div class="row">
-                      <form method=”POST” enctype=”multipart/form-data” name=”BookingForm”>
+                      <form id="ship_form" enctype="multipart/form-data">
                         <label for="fname">Ship id</label>
                         <input type="text" id="fname" name="ship_id" placeholder="type in ship id">
-                        <input type="submit" value="Submit" onClick="bt_submit_onclick()">
+                        <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
                           <a href="index" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
@@ -68,45 +68,19 @@
                           </tr>
                         </thead>
                           </table>
-                      <script src="./js/jquery-1.12.4.min.js">
-                          
+                      <script language="javascript" type="text/javascript">
+			      $("#ship_form").submit((event)=>{
+				    event.preventDefault();
+				   $("#table > tbody").empty();
+			  	   $.get("/repairs").done((data) => {
+				      data.forEach((item) => {
+					$("#table").append('<tr><td>' + item['ship_id'] + '</td></td>'+ item['times']+ '</td></tr>');
+				  });
+				})
+			  });
                       </script>
-                        / / Here you need to introduce the bootstrap table js file
-                      <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
-                      <script>
-
-                      // This method simulates printing random backend data. The structure of the print is shown above, loading data content prints.
-                      var test=[{"times":"17","ship_id":"56"},{"times":"16","ship_id":"63"},{"times":"16","ship_id":"50"}]
-                      function randomData(input) {
-                      //var startId = ~~(Math.random() * 100)
-                      var rows = []
-                      for (var i = 0; i < input.length; i++) {
-                          rows.push(input[i])
-                      
-                      }
-                    
-                   //console.log(rows)
-                   return rows;
-                    }
-                          
-                
- 
-            
-                $(function() {
-                         //Core content, bootstrapTable comes with a method, the data in randomdata is loaded as in the table, the key value in the data needs to correspond to the data-field written in the header.
-                var test=[{"times":"17","ship_id":"56"},{"times":"16","ship_id":"63"},{"times":"16","ship_id":"50"}]
-                //randomData(test)
-                  $('#table').bootstrapTable('append',randomData(test))
-                         // The following line of code adds style to the table, centering everything
-                  $("td,tr").addClass("text-center");
-             })
-                         </script>
                       
                       </form>
-                      <script type="text/javascript">
-2                           var TestString='Have a good time.';
-　                             document.write('Welcome to Wibibi.<br>'+TestString);
-9                      </script>
                     </div>
                   </div>
                 </div>

@@ -70,6 +70,7 @@
 			   $("#ship_form").submit((event) => {
 				event.preventDefault();
 				console.log($(this).serialize());
+                window.alert("insert "+$("#fname").val()+","+$("#lname").val());
 				$.post("/addship", $(this).serialize());
 			   });
                       </script>

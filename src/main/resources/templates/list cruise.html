@@ -51,12 +51,12 @@
                       <img src="img/footer.jpg" style="width:100%">
                     <!--/div-->
                     <div class="row">
-                      <form method=”POST” enctype=”multipart/form-data” name=”BookingForm”>
+                      <form id="cruise_form" enctype="multipart/form-data">
                         <label for="fname">Cruise number</label>
                         <input type="text" id="fname" name="cruise_id" placeholder="type in cruise number">
                         <label for="lname">Date</label>
                         <input type="text" id="lname" name="date" placeholder="type in Date">
-                        <input type="submit" value="Submit" onClick="bt_submit_onclick()">
+                        <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
                           <a href="index" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
@@ -68,41 +68,21 @@
                           </tr>
                         </thead>
                       </table>
-                        / / Here introduced jquery file, this file is local, you need to download and introduce
-                      <script src="./js/jquery-1.12.4.min.js"></script>
-                        / / Here you need to introduce the bootstrap table js file
-                      <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
-                      <script>
-                      // This method simulates printing random backend data. The structure of the print is shown above, loading data content prints.
-                      var test={"available_seat": null}
-                      function randomData(input) {
-                   console.log(input['available_seat'])
-                   return input['available_seat'];
-                    }
- 
-            
-                $(function() {
-                         / / Core content, bootstrapTable comes with a method, the data in randomdata is loaded as in the table, the key value in the data needs to correspond to the data-field written in the header.
-                $('#table').bootstrapTable('append',randomData())
-                         // The following line of code adds style to the table, centering everything
-                  $("td,th").addClass("text-center");
-             })
-        </script>
-
-                      </form>
-                      <script type="text/javascript">
-2                          $(function($) {
-3                           // 登錄點擊
-4                          $("#loging").click(function() {
-5                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
-6                             window.location.href =‘index1.html‘;  
-7                                });
-8                             });
-9                      </script>
-                    </div>
-                  </div>
-                </div>
+                      <script language="javascript" type="text/javascript">
+			      $("#cruise_form").submit((event)=>{
+				    event.preventDefault();
+				   $("#table > tbody").empty();
+			  	   $.get($("#fname").val()+"/seats").done((data) => {
+				      data.forEach((item) => {
+					$("#table").append('<tr><td>' + item['available_seats'] + '</td></tr>');
+				  });
+				})
+			  });
+                      </script>
+                 </div>
+            </div>
           </div>
+        </div>
     </div>
     <!-- Default code for Personal website -->
     <!-- End of Code -->
