@@ -230,7 +230,7 @@ public class IndexController {
 		}
 	}
 
-	@GetMapping(value = "/seats/{cruise_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "{cruise_id}/seats", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> seats(@PathVariable("cruise_id") String cruiseId, @RequestParam("date") String date) {
 		LOGGER.info(date);
 		try {
@@ -249,7 +249,7 @@ public class IndexController {
 		}
 	}
 
-	@GetMapping(value = "/passengers/{cruise_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "{cruise_id}/passengers", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> passengers(@PathVariable("cruise_id") String cruiseId) {
 		try {
 			List<List<String>> ret = executeQueryAndReturnResult("select status, count(status) from Reservation where cid = " + cruiseId + " group by status");
