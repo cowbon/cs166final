@@ -97,18 +97,10 @@
 				event.preventDefault();
 				console.log($(this).serialize());
                 window.alert("insert "+$("#1_name").val()+","+$("#2_name").val()+","+$("#3_name").val()+","+$("#4_name").val());
-				$.post("/addship", $(this).serialize());
+				$.post("/addship", $(this).serialize()).then(function (jqXHR, textStatus, errorThrown) {
+                              alert("input is wrong") });
 			   });
-                var request = new XMLHttpRequest();  
-                request.open('GET', '/booktrip', true);
-                request.onreadystatechange = function(){
-                if (request.readyState === 4) {
-                     if (request.status === 403) {  
-                           alert("input is wrong");
-                     }
-                     }
-                   };
-			   });
+                
                       </script>
                     </div>
                   </div>
