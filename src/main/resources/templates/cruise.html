@@ -46,16 +46,12 @@
                   <div style="text-align:center">
                     <h2 id="contact">Add Cruise Information</h2>
                   </div>
-                  <div class="row">
-                    <!--div class="column">
-                      <img src="img/footer.jpg" style="width:100%">
-                    </div-->
                     <div class="row">
                       <form id="cruise_form" enctype=”multipart/form-data” name="BookingForm">
                         <label for="fname">cost</label>
-                        <input type="text" id="1_name" name="cost" placeholder="type in cost" onblur="validate1();">
+                        <input type="text" id="1_name" name="cost" type="text" placeholder="type in cost" onblur="validate1();">
                         <label for="lname">number of stops</label>
-                        <input type="text" id="2_name" name="num_stop" placeholder="type in number of stops" onblur="validate2();">
+                        <input type="text" id="2_name" name="num_stop" type="text" placeholder="type in number of stops" onblur="validate1();">
                         <label for="lname">arrival port</label>
                         <input type="text" id="3_name" name="arrival_port" placeholder="type in arrival port">
                         <label for="lname">departure port</label>
@@ -72,21 +68,15 @@
                      var field1 = document.getElementById("1_name");
                      if (field1.value < 0 )
                      {
-                           alert("Field1 value of " + field1.value + " is invalid");
+                           alert("value of cost," + field1.value + " is invalid");
 
                           // Change the value back to the previous valid answer
                          return false;
                      }
-
-                     // Save the valid input
-                     return true;
-                  };
-                  function validate2()
-                  {
-                     var field1 = document.getElementById("2_name");
-                     if (field1.value < 0 || !Number.isInteger(field1.value))
+                     var field2 = document.getElementById("2_name");
+                     if (field2.value < 0 | (parseInt(field2.value)-field2.value!=0 ))
                      {
-                           alert("Field1 value of " + field1.value + " is invalid");
+                           alert("value of number of stops," + field2.value + " is invalid ");
 
                           // Change the value back to the previous valid answer
                          return false;
@@ -100,8 +90,17 @@
 			   $("#cruise_form").submit((event) => {
 				event.preventDefault();
 				console.log($(this).serialize());
-                window.alert("insert "+$("#1_name").val()+","+$("#2_name").val()","+$("#3_name").val()","+$("#4_name").val()","+$("#5_name").val()+","+$("#6_name").val());
+                window.alert("insert"+$("#1_name").val()+","+$("#2_name").val()","+$("#3_name").val()","+$("#4_name").val()","+$("#5_name").val()+","+$("#6_name").val());
 				$.post("/addcruise", $(this).serialize());
+                var request = new XMLHttpRequest();  
+                request.open('GET', '/addcruise', true);
+                request.onreadystatechange = function(){
+                if (request.readyState === 4) {
+                     if (request.status === 403) {  
+                           alert("input is wrong");
+                     }
+                     }
+                };
 			   });
 			</script>
                       <div style="text-align:center">
@@ -109,10 +108,8 @@
                           <a href="staff" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
                     </div>
-                  </div>
-                </div>
-          </div>
-    </div>
+        </div>
+        
     <!-- Default code for Personal website -->
     <!-- End of Code -->
     </body>

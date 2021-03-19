@@ -38,6 +38,22 @@
 
         <script type="text/javascript" src="js/magnific-popup.js"></script>
         <script type="text/javascript" src="js/custom.js"></script>
+        <script type="text/javascript">
+                             function validate()
+                             {
+                                 var field1 = document.getElementById("fname");
+                                 if (field1.value < 0 || (parseInt(field1.value)-field1.value!=0 ))
+                                 {
+                                        alert("value of Cruise id," + field1.value + " is invalid");
+
+                                 // Change the value back to the previous valid answer
+                                 return false;
+                                 }
+
+                                 // Save the valid input
+                                 return true;
+                            };
+       </script>
 
     </head>
     <body>
@@ -51,7 +67,7 @@
                     <div class="row">
                       <form id="cruise_form" enctype="multipart/form-data">
                         <label for="fname">Cruise id</label>
-                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise id">
+                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise id"  onblur="validate();">
                         <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
@@ -83,8 +99,6 @@
               }).fail((data) => {
                  if (typeof data === 'string' || data instanceof String)
                  {    alert("input is wrong");                         }
-                 
-                     
               })
 			  })
                

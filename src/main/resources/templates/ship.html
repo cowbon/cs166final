@@ -60,7 +60,7 @@
                         <label for="fname">Age</label>
                         <input type="text" id="3_name" name="age" placeholder="type in age of ship" onblur="validate1();">
                         <label for="lname">Seats</label>
-                        <input type="text" id="4_name" name="seats" placeholder="type in number of seats" onblur="validate2();">
+                        <input type="text" id="4_name" name="seats" placeholder="type in number of seats" onblur="validate1();">
                         <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
@@ -71,30 +71,25 @@
                              function validate1()
                              {
                                  var field1 = document.getElementById("3_name");
-                                 if (field1.value < 0 || !Number.isInteger(field1.values))
+                                 if (field1.value < 0 | (parseInt(field1.value)-field1.value!=0 ))
                                  {
                                         alert("value of Age," + field1.value + " is invalid");
 
-                                 // Change the value back to the previous valid answer
-                                 return false;
+                                      // Change the value back to the previous valid answer
+                                      return false;
                                  }
+                                 var field2 = document.getElementById("4_name");
+                                 if (field2.value < 0 | (parseInt(field2.value)-field2.value!=0 ))
+                                 {
+                                     alert("value of Seats," + field2.value + " is invalid");
+
+                                     // Change the value back to the previous valid answer
+                                     return false;
+                                 }
+ 
 
                                  // Save the valid input
                                  return true;
-                            };
-                            function validate2()
-                            {
-                                 var field1 = document.getElementById("4_name");
-                               if (field1.value < 0 || !Number.isInteger(field1.values))
-                               {
-                                  alert("value of Seats," + field1.value + " is invalid");
-
-                                  // Change the value back to the previous valid answer
-                                  return false;
-                                 }
-
-                            // Save the valid input
-                            return true;
                             };
                     </script>
                       <script type="text/javascript">
@@ -103,6 +98,16 @@
 				console.log($(this).serialize());
                 window.alert("insert "+$("#1_name").val()+","+$("#2_name").val()+","+$("#3_name").val()+","+$("#4_name").val());
 				$.post("/addship", $(this).serialize());
+			   });
+                var request = new XMLHttpRequest();  
+                request.open('GET', '/booktrip', true);
+                request.onreadystatechange = function(){
+                if (request.readyState === 4) {
+                     if (request.status === 403) {  
+                           alert("input is wrong");
+                     }
+                     }
+                   };
 			   });
                       </script>
                     </div>

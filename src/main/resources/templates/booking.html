@@ -39,6 +39,29 @@
         <script type="text/javascript" src="js/magnific-popup.js"></script>
         <script type="text/javascript" src="js/custom.js"></script>
         <!--/Javascript files-->
+        <script type="text/javascript">
+                  function validate1()
+                  {
+                     var field1 = document.getElementById("fname");
+                     var field2 = document.getElementById("lname");
+                     if (field1.value < 0 | (parseInt(field1.value)-field1.value!=0 ) )
+                     {
+                          window.alert("value of Cruise id," + field1.value + " is invalid");
+
+                          // Change the value back to the previous valid answer
+                         return false;
+                     }
+                     if( field2.value < 0 | (parseInt(field2.value)-field2.value!=0 ))
+                     {
+                         
+                         window.alert("value of Customer id," + field2.value + " is invalid");
+                         return false;
+                     }
+
+                     // Save the valid input
+                     return true;
+                  };
+       </script>
 
     </head>
     <body>
@@ -53,9 +76,9 @@
                     <div class="row">
                       <form id="booking_form" enctype=”multipart/form-data” name=”BookingForm”>
                         <label for="fname">Cruise id</label>
-                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise id">
+                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise id" onblur="validate1();">
                         <label for="lname">Customer id</label>
-                        <input type="text" id="lname" name="customer_id" placeholder="type in customer id">
+                        <input type="text" id="lname" name="customer_id" placeholder="type in customer id" onblur="validate1();">
                         <input type="submit" value="Submit">
                       </form>
                       <div style="text-align:center">
@@ -68,6 +91,15 @@
 				console.log($(this).serialize());
                 window.alert("insert "+$("#fname").val()+","+$("#lname").val());
 				$.post("/booktrip", $(this).serialize());
+                var request = new XMLHttpRequest();  
+                request.open('GET', '/booktrip', true);
+                request.onreadystatechange = function(){
+                if (request.readyState === 4) {
+                     if (request.status === 403) {  
+                           alert("input is wrong");
+                     }
+                     }
+                   };
 			   });
                       </script>
                     </div>

@@ -66,13 +66,21 @@
 				event.preventDefault();
                 window.alert("insert "+$("#fname").val()+","+$("#lname").val());
 				$.post("/addcaptain", $(this).serialize());
+                var request = new XMLHttpRequest();  
+                request.open('GET', '/addcaptain', true);
+                request.onreadystatechange = function(){
+                if (request.readyState === 4) {
+                     if (request.status === 403) {  
+                           alert("input is wrong");
+                     }
+                     }
+                };
 			   });
+               
 			</script>
                     </div>
                   </div>
                 </div>
-          </div>
-    </div>
     <!-- Default code for Personal website -->
     <!-- End of Code -->
     </body>

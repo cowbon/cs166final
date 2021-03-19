@@ -46,17 +46,11 @@
                   <div style="text-align:center">
                     <h2 id="contact">List Cruise Information</h2>
                   </div>
-<<<<<<< HEAD
-=======
-                  <div class="row">
-                    <!--div class="column">
-                      <img src="img/footer.jpg" style="width:100%">
-                    </div-->
->>>>>>> ef6de7edd598da8155b4f43c92189bb324e892bc
+
                     <div class="row">
                       <form id="cruise_form" enctype="multipart/form-data">
                         <label for="fname">Cruise number</label>
-                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise number">
+                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise number" onblur="validate();">
                         <label for="lname">Date</label>
                         <input type="text" id="lname" name="date" placeholder="type in Date">
                         <input type="submit" value="Submit">
@@ -71,6 +65,23 @@
                           </tr>
                         </thead>
                       </table>
+                      </form>   
+                      <script type="text/javascript">
+                             function validate()
+                             {
+                                 var field1 = document.getElementById("fname");
+                                 if (field1.value < 0 || (parseInt(field1.value)-field1.value!=0 ))
+                                 {
+                                        alert("value of Cruise number," + field1.value + " is invalid");
+
+                                 // Change the value back to the previous valid answer
+                                 return false;
+                                 }
+
+                                 // Save the valid input
+                                 return true;
+                            };
+                    </script>
                       <script language="javascript" type="text/javascript">
 			      $("#cruise_form").submit((event)=>{
 				    event.preventDefault();
@@ -79,11 +90,15 @@
 				      data.forEach((item) => {
 					$("#table").append('<tr><td>' + item['available_seats'] + '</td></tr>');
 				  });
-				})
+				}).fail((data) => {
+                 if (typeof data === 'string' || data instanceof String)
+                 {    alert("input is wrong");                         }
+              })
 			  });
+                   
                       </script>
             </div>
-    </div>
+       </div>
     <!-- Default code for Personal website -->
     <!-- End of Code -->
     
