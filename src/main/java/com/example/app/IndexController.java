@@ -154,9 +154,9 @@ public class IndexController {
                        captain + "', '" + ship + "');");
 		} catch(SQLException e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest(e.getMessage());
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
+		return ResponseEntity.ok(null);
 	}
 
 	@PostMapping("/addship")
@@ -226,7 +226,7 @@ public class IndexController {
 			return ResponseEntity.ok(resp);
 		} catch(SQLException e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
@@ -235,10 +235,12 @@ public class IndexController {
 		LOGGER.info(date);
 		try {
 			List<List<String>> ret = executeQueryAndReturnResult("select (select seats from Ship, CruiseInfo, Schedule where Schedule.cruiseNum = CruiseInfo.cruise_id and CruiseInfo.ship_id = Ship.id and departure_time = '" + date + "' and Schedule.cruiseNum = " + cruiseId + ") - (select count(*) from Reservation, Schedule where Reservation.cid = Schedule.cruiseNum and Schedule.cruiseNum = " + cruiseId + " and departure_time = '" + date + "')");
+			if (Integer.parseInt(cruiseId) < 0)
+				return ResponseEntity.badRequest().body("cruise id is invalid");
 			HashMap<String, String> resp = new HashMap<String, String>();
-			if (ret.size() < 1) {
-				resp.put("status", "No cruise on date " + date);
-				return ResponseEntity.ok(resp);
+			if (ret.isEmpty()) {
+				resp.put("status", "No cruise on date " + date + " or no such cruise");
+				return ResponseEntity.badRequest().body(resp);
 			}
 			int remaining = Integer.parseInt(ret.get(0).get(0));
 			resp.put("available_seats", String.valueOf(remaining < 0 ? 0 : remaining));
@@ -253,6 +255,9 @@ public class IndexController {
 	public ResponseEntity<?> passengers(@PathVariable("cruise_id") String cruiseId) {
 		try {
 			List<List<String>> ret = executeQueryAndReturnResult("select status, count(status) from Reservation where cid = " + cruiseId + " group by status");
+			if (ret.isEmpty()) {
+				return ResponseEntity.badRequest().body("No reservation found for " + cruiseId);
+			}
 			List<HashMap<String, String>> resp = new ArrayList<HashMap<String, String>>();
 			for (List<String> arr:ret) {
 				HashMap<String, String> tmp = new HashMap<String, String>();
@@ -264,7 +269,7 @@ public class IndexController {
 			return ResponseEntity.ok(resp);
 		} catch(SQLException e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
