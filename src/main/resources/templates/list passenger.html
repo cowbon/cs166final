@@ -37,7 +37,7 @@
         <script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
 
         <script type="text/javascript" src="js/magnific-popup.js"></script>
-        <script type="text/javascript" src="js/custom.js"></script>
+        <!--script type="text/javascript" src="js/custom.js"></script>
         <!--/Javascript files-->
 
     </head>
@@ -75,52 +75,45 @@
                           var test=[{"count": "2","status": "C"},{"count": "3", "status": "W"}]
                           rows=[]
                           for (var i = 0; i < test.length; i++) {
-                               rows.push(test[i])
-                               document.write(test[i]['count']);
-                               document.write('  ');
+                               rows.push(test[i]);
                                document.write(test[i]['status']);
+                               document.write('  ');
+                               document.write(test[i]['count']);
                                document.write('<br>');
                           }
 　                        document.write('Welcome to Wibibi.<br>'+TestString);
                       </script>
                           
                       <script src="./js/jquery-1.12.4.min.js"></script>
-                      <script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
+                      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                       <script>
                       // This method simulates printing random backend data. The structure of the print is shown above, loading data content prints.
                                               
                        
                       var test=[{"count": "2","status": "C"},{"count": "3", "status": "W"}]
-                      function randomData(input) {
-                      rows=[]
+                      function Data(input) {
+                      rows=[];
                       for (var i = 0; i < input.length; i++) {
-                          rows.push(input[i])
+                          rows.push(input[i]);
                       
                       }
                     
-                   console.log(rows)
-                   return rows;
+                        console.log(rows);
+                        return rows;
  
                       }
                           
                       
                           
                 $(function() {
-                         / / Core content, bootstrapTable comes with a method, the data in randomdata is loaded as in the table, the key value in the data needs to correspond to the data-field written in the header.
-                $('#table').bootstrapTable('append',randomData())
+                         
+                $('#table').bootstrapTable('append',test)
                          // The following line of code adds style to the table, centering everything
                   $("td,th").addClass("text-center");
              })
-        </script>                      </form>
-                      <script type="text/javascript">
-                          $(function($) {
-                           // 登錄點擊
-                          $("#loging").click(function() {
-                            //window.location.href = "https://www.xiami.com/collect/358371983";(跳轉至外部鏈接)
-                             window.location.href =‘index.html‘;  
-                                });
-                             });
-                      </script>
+                </script>                      
+                   </form>
+                      
                     </div>
                   </div>
                 </div>
