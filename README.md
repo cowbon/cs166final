@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="webpage.png" width="350" title="hover text">
+</p>
+
 # cs166final
 We built the cruise database and provide the web application interface for the user to manipulate it. It provides the service for customer and staff and can show the searhing result of the query
 
