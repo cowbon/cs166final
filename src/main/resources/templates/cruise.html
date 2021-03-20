@@ -49,9 +49,9 @@
                     <div class="row">
                       <form id="cruise_form" enctype=”multipart/form-data” name="BookingForm">
                         <label for="fname">cost</label>
-                        <input type="text" id="1_name" name="cost" type="text" placeholder="type in cost" onblur="validate1();">
+                        <input type="text" id="1_name" name="cost" placeholder="type in cost">
                         <label for="lname">number of stops</label>
-                        <input type="text" id="2_name" name="num_stop" type="text" placeholder="type in number of stops" onblur="validate1();">
+                        <input type="text" id="2_name" name="num_stop" placeholder="type in number of stops">
                         <label for="lname">arrival port</label>
                         <input type="text" id="3_name" name="arrival_port" placeholder="type in arrival port">
                         <label for="lname">departure port</label>
@@ -62,37 +62,44 @@
                         <input type="text" id="6_name" name="captain_id" placeholder="type in captain id">
                         <input type="submit" value="Submit" onClick="/addcruise">
                       </form>
-            <script type="text/javascript">
-                  function validate1()
-                  {
-                     var field1 = document.getElementById("1_name");
-                     if (field1.value < 0 )
-                     {
-                           alert("value of cost," + field1.value + " is invalid");
-
-                          // Change the value back to the previous valid answer
-                         return false;
-                     }
-                     var field2 = document.getElementById("2_name");
-                     if (field2.value < 0 | (parseInt(field2.value)-field2.value!=0 ))
-                     {
-                           alert("value of number of stops," + field2.value + " is invalid ");
-
-                          // Change the value back to the previous valid answer
-                         return false;
-                     }
-
-                     // Save the valid input
-                     return true;
-                  };
-            </script>
 			<script language="javascript" type="text/javascript">
+			  function validate1()
+			  {
+			     var field1 = document.getElementById("1_name");
+			     if (isNaN(field1.value))
+			     {
+				   alert("value of cost," + field1.value + " is invalid");
+
+				  // Change the value back to the previous valid answer
+				 return false;
+			     }
+			     var field2 = document.getElementById("2_name");
+			     if (isNaN($("#5_name").val())||parseInt($("#5_name").val()) < 0)
+			     {
+				   alert("value of number of stops," + field2.value + " is invalid ");
+
+				  // Change the value back to the previous valid answer
+				 return false;
+			     }
+
+			     if (isNaN(field2.value)||parseInt(field2.value) < 0 | (parseInt(field2.value)-field2.value!=0 ))
+			     {
+				   alert("value of number of stops," + field2.value + " is invalid ");
+
+				  // Change the value back to the previous valid answer
+				 return false;
+			     }
+			     // Save the valid input
+			     return true;
+			  };
 			   $("#cruise_form").submit((event) => {
 				event.preventDefault();
-				console.log($(this).serialize());
-                window.alert("insert"+$("#1_name").val()+","+$("#2_name").val()","+$("#3_name").val()","+$("#4_name").val()","+$("#5_name").val()+","+$("#6_name").val());
-				$.post("/addcruise", $(this).serialize()).then(function (jqXHR, textStatus, errorThrown) {
-                              alert("input is wrong") });
+				if (validate1()()) {
+					$.post("/addcruise", $("#cruise_form").serialize())
+					.done(()=>{alert("succeed")})
+					.fail(function (jqXHR, textStatus, errorThrown) {
+                              		alert("input is wrong") });
+				}
 			   });
 			</script>
                       <div style="text-align:center">

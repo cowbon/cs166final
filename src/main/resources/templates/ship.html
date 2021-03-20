@@ -58,9 +58,9 @@
                         <label for="lname">Make</label>
                         <input type="text" id="2_name" name="make" placeholder="type in who make it">
                         <label for="fname">Age</label>
-                        <input type="text" id="3_name" name="age" placeholder="type in age of ship" onblur="validate1();">
+                        <input type="text" id="3_name" name="age" placeholder="type in age of ship">
                         <label for="lname">Seats</label>
-                        <input type="text" id="4_name" name="seats" placeholder="type in number of seats" onblur="validate1();">
+                        <input type="text" id="4_name" name="seats" placeholder="type in number of seats">
                         <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
@@ -71,7 +71,7 @@
                              function validate1()
                              {
                                  var field1 = document.getElementById("3_name");
-                                 if (field1.value < 0 | (parseInt(field1.value)-field1.value!=0 ))
+                                 if (isNaN(field1.value)||parseInt(field1.value) < 0 | (parseInt(field1.value)-field1.value!=0 ))
                                  {
                                         alert("value of Age," + field1.value + " is invalid");
 
@@ -79,14 +79,16 @@
                                       return false;
                                  }
                                  var field2 = document.getElementById("4_name");
-                                 if (field2.value < 0 | (parseInt(field2.value)-field2.value!=0 ))
+                                 if (isNaN(field2.value)||parseInt(field2.value) < 0 | (parseInt(field2.value)-field2.value!=0 ))
                                  {
                                      alert("value of Seats," + field2.value + " is invalid");
 
                                      // Change the value back to the previous valid answer
                                      return false;
                                  }
- 
+				 if (!$("#1_name").val() || !$("#2_name").val()) {
+					alert("The form is incompleted");
+				 } 
 
                                  // Save the valid input
                                  return true;
@@ -95,10 +97,12 @@
                       <script type="text/javascript">
 			   $("#ship_form").submit((event) => {
 				event.preventDefault();
-				console.log($(this).serialize());
-                window.alert("insert "+$("#1_name").val()+","+$("#2_name").val()+","+$("#3_name").val()+","+$("#4_name").val());
-				$.post("/addship", $(this).serialize()).then(function (jqXHR, textStatus, errorThrown) {
-                              alert("input is wrong") });
+				if (validate1()) {
+					$.post("/addship", $("#ship_form").serialize())
+					.done(() => {alert("Succeed");})
+					.fail(function (jqXHR, textStatus, errorThrown) {
+                              		alert("input is wrong") });
+				}
 			   });
                 
                       </script>

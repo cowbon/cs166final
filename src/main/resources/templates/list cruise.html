@@ -50,9 +50,9 @@
                     <div class="row">
                       <form id="cruise_form" enctype="multipart/form-data">
                         <label for="fname">Cruise number</label>
-                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise number" onblur="validate();">
+                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise number">
                         <label for="lname">Date</label>
-                        <input type="text" id="lname" name="date" placeholder="type in Date">
+                        <input type="date" id="lname" name="date" placeholder="type in Date">
                         <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
@@ -66,34 +66,33 @@
                         </thead>
                       </table>
                       </form>   
-                      <script type="text/javascript">
+                      <script language="javascript" type="text/javascript">
                              function validate()
                              {
                                  var field1 = document.getElementById("fname");
-                                 if (field1.value < 0 || (parseInt(field1.value)-field1.value!=0 ))
+                                 if (isNaN(field1.value)||parseInt(field1.value) < 0|| (parseInt(field1.value)-field1.value!=0 ))
                                  {
                                         alert("value of Cruise number," + field1.value + " is invalid");
 
                                  // Change the value back to the previous valid answer
-                                 return false;
+                                 	return false;
                                  }
 
-                                 // Save the valid input
                                  return true;
                             };
-                    </script>
-                      <script language="javascript" type="text/javascript">
 			      $("#cruise_form").submit((event)=>{
-				    event.preventDefault();
+				event.preventDefault();
+				if (validate()) {
 				   $("#table > tbody").empty();
-			  	   $.get($("#fname").val()+"/seats").done((data) => {
-				      data.forEach((item) => {
-					$("#table").append('<tr><td>' + item['available_seats'] + '</td></tr>');
-				  });
-				}).fail((data) => {
-                 if (typeof data === 'string' || data instanceof String)
-                 {    alert("input is wrong");                         }
-              })
+				   console.log($("#cruise_form").serialize());
+			  	   $.get($("#fname").val()+"/seats", $("#cruise_form").serialize()).done((data) => {
+					if (isNaN(data['available_seats']))
+					    alert(data['available_seats'])
+					else {
+					    $("#table").append('<tr><td>' + data['available_seats'] + '</td></tr>');
+					}
+				   });
+				}
 			  });
                    
                       </script>

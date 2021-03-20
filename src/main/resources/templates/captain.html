@@ -62,11 +62,31 @@
                       </div>
                       </form>
 			<script language="javascript" type="text/javascript">
+			  function validate1() {
+			     if (!$("#fname").val())
+			     {
+				  alert("Fullname is invalid");
+
+				  // Change the value back to the previous valid answer
+				 return false;
+			     }
+			     if(!$("#lname").val())
+			     {
+				 
+				 alert("Customer id is empty");
+				 return false;
+			     }
+
+			     // Save the valid input
+			     return true;
+			  };
 			   $("#captain_form").submit((event) => {
 				event.preventDefault();
-                window.alert("insert "+$("#fname").val()+","+$("#lname").val());
-				$.post("/addcaptain", $(this).serialize()).then(function (jqXHR, textStatus, errorThrown) {
-                              alert("input is wrong") });
+				if (validate1()) {
+					$.post("/addcaptain", $("#captain_form").serialize())
+					.done((data) => {alert("succeeded")})
+					.fail((data) => {alert(data)});
+				}
 			   });
                
 			</script>

@@ -72,10 +72,7 @@
 				      data.forEach((item) => {
 					$("#table").append('<tr><td>' + item['ship_id'] + '</td><td>'+ item['times']+ '</td></tr>');
 				  });
-				}).fail((data) => {
-                 if (typeof data === 'string' || data instanceof String)
-                 {    alert("input is wrong");                         }
-              })
+				});
 			  });
                       </script>
                     </div>

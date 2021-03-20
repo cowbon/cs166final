@@ -140,8 +140,8 @@ public class IndexController {
 	public ResponseEntity<?> addCruise(@RequestBody HttpServletRequest request) {
 		String cost = request.getParameter("cost");	
 		String num_stops = request.getParameter("num_stops");	
-		String actual_departure_date = request.getParameter("actual_departure_date");	
-		String actual_arrival_date = request.getParameter("actual_arrival_date");	
+		String departure_date = request.getParameter("departure_time");	
+		String arrival_date = request.getParameter("arrival_time");	
 		String arrival_port = request.getParameter("arrival_port");	
 		String departure_port = request.getParameter("departure_port");
 		String ship = request.getParameter("ship_id");
@@ -152,9 +152,10 @@ public class IndexController {
 			int cruise_id = getCurrSeqVal("cruise_id_seq");
 			executeUpdate("INSERT INTO CruiseInfo(cruise_id,captain_id,ship_id) VALUES("+ "'" + cruise_id+ "', '" +
                        captain + "', '" + ship + "');");
+			executeUpdate("INSERT INTO Schedule(id, cruiseNum, departure_time, arrival_time) VALUES(" + cruise_id + ", " + cruise_id + ", date(" + departure_date + "), date(" + arrival_date + "));");
 		} catch(SQLException e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest(e.getMessage());
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		return ResponseEntity.ok(null);
 	}
@@ -197,14 +198,17 @@ public class IndexController {
 		String customerId = request.getParameter("customer_id");
 		String query = "Select (Select Ship.seats From CruiseInfo, Ship Where CruiseInfo.ship_id = Ship.id And CruiseInfo.cruise_id=" + cruiseId + ")- (Select Count(*) From Reservation Where Reservation.cid=" + cruiseId + ");";
 		try {
-			List<List<String>> res = executeQueryAndReturnResult(query);
+			List<List<String>> res = executeQueryAndReturnResult("select * from CruiseInfo where CruiseInfo.cruise_id=" + cruiseId);
+			if (res.isEmpty())
+			    return ResponseEntity.ok("No such cruiseId");
+			res = executeQueryAndReturnResult(query);
 			int remaining = Integer.parseInt(res.get(0).get(0));
 			if (remaining < 1)
 				executeUpdate("insert into Reservation (ccid, cid, status) values (" + customerId + "," + cruiseId + ",'W');");
 			else
 				executeUpdate("insert into Reservation (ccid, cid, status) values (" + customerId + "," + cruiseId + ",'R');");
 				
-			return ResponseEntity.ok(null);
+			return ResponseEntity.ok("success");
 		} catch(SQLException e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -235,15 +239,18 @@ public class IndexController {
 		LOGGER.info(date);
 		try {
 			List<List<String>> ret = executeQueryAndReturnResult("select (select seats from Ship, CruiseInfo, Schedule where Schedule.cruiseNum = CruiseInfo.cruise_id and CruiseInfo.ship_id = Ship.id and departure_time = '" + date + "' and Schedule.cruiseNum = " + cruiseId + ") - (select count(*) from Reservation, Schedule where Reservation.cid = Schedule.cruiseNum and Schedule.cruiseNum = " + cruiseId + " and departure_time = '" + date + "')");
-			if (Integer.parseInt(cruiseId) < 0)
-				return ResponseEntity.badRequest().body("cruise id is invalid");
 			HashMap<String, String> resp = new HashMap<String, String>();
-			if (ret.isEmpty()) {
-				resp.put("status", "No cruise on date " + date + " or no such cruise");
-				return ResponseEntity.badRequest().body(resp);
+			if (Integer.parseInt(cruiseId) < 0) {
+				resp.put("available_seats", "cruise id is invalid");
+				return ResponseEntity.ok(resp);
 			}
-			int remaining = Integer.parseInt(ret.get(0).get(0));
+			if (ret.isEmpty() || ret.get(0).get(0) == null) {
+				resp.put("available_seats", "No cruise id " + cruiseId + " on date " + date);
+				return ResponseEntity.ok(resp);
+			} 
+			int remaining = (ret.get(0).get(0) == null)? 0 : Integer.parseInt(ret.get(0).get(0));
 			resp.put("available_seats", String.valueOf(remaining < 0 ? 0 : remaining));
+			LOGGER.info("arrival_seats:"+remaining);
 			return ResponseEntity.ok(resp);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -254,13 +261,23 @@ public class IndexController {
 	@GetMapping(value = "{cruise_id}/passengers", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> passengers(@PathVariable("cruise_id") String cruiseId) {
 		try {
+			List<List<String>> res = executeQueryAndReturnResult("select * from CruiseInfo where CruiseInfo.cruise_id=" + cruiseId);
+			List<HashMap<String, String>> resp = new ArrayList<HashMap<String, String>>();
+			HashMap<String, String> tmp = new HashMap<String, String>();
+			if (res.isEmpty()) {
+			    tmp.put("status", "Error");
+			    tmp.put("count", "No such cruise Id:" + cruiseId);
+			    resp.add(tmp);
+			    return ResponseEntity.ok(resp);
+			}
 			List<List<String>> ret = executeQueryAndReturnResult("select status, count(status) from Reservation where cid = " + cruiseId + " group by status");
 			if (ret.isEmpty()) {
-				return ResponseEntity.badRequest().body("No reservation found for " + cruiseId);
+			    tmp.put("status", "Error");
+			    tmp.put("count", "No reservation found for:" + cruiseId);
+			    resp.add(tmp);
+			    return ResponseEntity.ok(resp);
 			}
-			List<HashMap<String, String>> resp = new ArrayList<HashMap<String, String>>();
 			for (List<String> arr:ret) {
-				HashMap<String, String> tmp = new HashMap<String, String>();
 				tmp.put("status", arr.get(0));
 				tmp.put("count", arr.get(1));
 				resp.add(tmp);
@@ -276,12 +293,15 @@ public class IndexController {
 	@DeleteMapping("/reservation/{customer_id}/{cruise_id}")
 	public ResponseEntity<?> cancel(@PathVariable("customer_id") String customerId, @PathVariable("cruise_id") String cruiseId) {
 		try {
+			List<List<String>> ret = executeQueryAndReturnResult("select * from Reservation where ccid=" + customerId + " and cid=" + cruiseId + ";");
+			if (ret.isEmpty())
+			    return ResponseEntity.ok("No such record");
 			executeUpdate("DELETE FROM Reservation WHERE ccid=" + customerId + " and cid=" + cruiseId + ";");
 
 		} catch(SQLException e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok("Succeeded");
 	}
 };
