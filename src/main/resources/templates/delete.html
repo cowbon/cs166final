@@ -111,9 +111,8 @@
                              event.preventDefault();
                              $("#table > tbody").empty();
                                $.get("/reservation"+$("#fname").val()+"/"+$("#lname").val()).done((data) => {
-                                   data.forEach((item) => {
-					                  $cancel.(item["cruise_id"],item['customer_id']);
-                                      window.alert("delete "+$("#fname").val()+","+$("#lname").val()]);
+                                   //data.forEach((item) => {
+					                  //$cancel.(item["customer_id"],item["cruise_id"]);
 				                  });
                                })});
                       </script>
