@@ -70,10 +70,6 @@
                   <div style="text-align:center">
                     <h2 id="contact">Delete Booking</h2>
                   </div>
-                  <div class="row">
-                    <!--div class="column">
-                      <img src="img/footer.jpg" style="width:100%">
-                    </div-->
                     <div class="row">
                       <form id="delete_form" enctype="multipart/form-data">
                         <label for="fname">Cruise id</label>
@@ -107,18 +103,17 @@
 			              // Save the valid input
 			              return true;
 			            };
-                           $("#delete_form").submit((event)=>{
-                             event.preventDefault();
-                             $("#table > tbody").empty();
-                               $.get("/reservation"+$("#fname").val()+"/"+$("#lname").val()).done((data) => {
-                                   //data.forEach((item) => {
-					                  //$cancel.(item["customer_id"],item["cruise_id"]);
-				                  });
-                               })});
+                             $("#delete_form").submit((event) => {
+				            event.preventDefault();
+				           if (validate1()) {
+				           $.delete("/reservation", $("#delete_form").serialize())
+				           .done((data) => {alert("succeeded")})
+				           .fail((data) => {alert(data)});
+				           }
+				           });
                       </script>
                     </div>
                   </div>
-                </div>
           
     <!-- Default code for Personal website -->
     <!-- End of Code -->
