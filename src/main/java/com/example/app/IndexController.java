@@ -137,22 +137,23 @@ public class IndexController {
 	}
 
 	@PostMapping("/addcruise")
-	public ResponseEntity<?> addCruise(@RequestBody HttpServletRequest request) {
+	public ResponseEntity<?> addCruise(HttpServletRequest request) {
 		String cost = request.getParameter("cost");	
-		String num_stops = request.getParameter("num_stops");	
+		String num_stops = request.getParameter("num_stop");	
 		String departure_date = request.getParameter("departure_time");	
 		String arrival_date = request.getParameter("arrival_time");	
 		String arrival_port = request.getParameter("arrival_port");	
 		String departure_port = request.getParameter("departure_port");
 		String ship = request.getParameter("ship_id");
 		String captain = request.getParameter("captain_id");
+		LOGGER.info(arrival_date + " " + departure_date);
 		try {
 			executeUpdate("INSERT INTO Cruise(cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_port, departure_port ) VALUES("+ "'" +
-	               cost+ "', 0, '" + num_stops+ "', 'date(2021-05-08)', 'date(2021-05-08)', '" + arrival_port+ "','" +departure_port + "');");
+	               cost+ "', 0, '" + num_stops+ "', '2021-05-08', '2021-05-08', '" + arrival_port+ "','" +departure_port + "');");
 			int cruise_id = getCurrSeqVal("cruise_id_seq");
 			executeUpdate("INSERT INTO CruiseInfo(cruise_id,captain_id,ship_id) VALUES("+ "'" + cruise_id+ "', '" +
                        captain + "', '" + ship + "');");
-			executeUpdate("INSERT INTO Schedule(id, cruiseNum, departure_time, arrival_time) VALUES(" + cruise_id + ", " + cruise_id + ", date(" + departure_date + "), date(" + arrival_date + "));");
+			executeUpdate("INSERT INTO Schedule(id, cruiseNum, departure_time, arrival_time) VALUES(" + cruise_id + ", " + cruise_id + ", '" + departure_date + "',' " + arrival_date + "');");
 		} catch(SQLException e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

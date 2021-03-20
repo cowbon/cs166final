@@ -47,7 +47,7 @@
                     <h2 id="contact">Add Cruise Information</h2>
                   </div>
                     <div class="row">
-                      <form id="cruise_form" enctype=”multipart/form-data” name="BookingForm">
+                      <form id="cruise_form" enctype="multipart/form-data" name="BookingForm">
                         <label for="1_name">cost</label>
                         <input type="text" id="1_name" name="cost" placeholder="type in cost">
                         <label for="2_name">number of stops</label>
@@ -61,7 +61,9 @@
                         <label for="6_name">captain id</label>
                         <input type="text" id="6_name" name="captain_id" placeholder="type in captain id">
                         <label for="7_name">departure time</label>
-                        <input type="text" id="7_name" name="departure_time" placeholder="type in departure time of cruise in the schedule">
+                        <input type="date" id="7_name" name="departure_time" placeholder="type in departure time of cruise in the schedule">
+                        <label for="8_name">arrival time</label>
+                        <input type="date" id="8_name" name="arrival_time" placeholder="type in arrival time of cruise in the schedule">
                         <input type="submit" value="Submit">
                       </form>
 			<script language="javascript" type="text/javascript">
@@ -149,12 +151,11 @@
 			  };
 			   $("#cruise_form").submit((event) => {
 				event.preventDefault();
-				if (validate1()) {
+				console.log($("#cruise_form").serialize());
 					$.post("/addcruise", $("#cruise_form").serialize())
 					.done(()=>{alert("succeed")})
 					.fail(function (jqXHR, textStatus, errorThrown) {
                               		alert("input is wrong") });
-				}
 			   });
 			</script>
                       <div style="text-align:center">
