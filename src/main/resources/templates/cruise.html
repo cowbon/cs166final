@@ -48,53 +48,108 @@
                   </div>
                     <div class="row">
                       <form id="cruise_form" enctype=”multipart/form-data” name="BookingForm">
-                        <label for="fname">cost</label>
+                        <label for="1_name">cost</label>
                         <input type="text" id="1_name" name="cost" placeholder="type in cost">
-                        <label for="lname">number of stops</label>
+                        <label for="2_name">number of stops</label>
                         <input type="text" id="2_name" name="num_stop" placeholder="type in number of stops">
-                        <label for="lname">arrival port</label>
+                        <label for="3_name">arrival port</label>
                         <input type="text" id="3_name" name="arrival_port" placeholder="type in arrival port">
-                        <label for="lname">departure port</label>
+                        <label for="4_name">departure port</label>
                         <input type="text" id="4_name" name="departure_port" placeholder="type in departure port">
-                        <label for="lname">ship id</label>
+                        <label for="5_name">ship id</label>
                         <input type="text" id="5_name" name="ship_id" placeholder="type in ship id">
-                        <label for="lname">captain id</label>
+                        <label for="6_name">captain id</label>
                         <input type="text" id="6_name" name="captain_id" placeholder="type in captain id">
-                        <input type="submit" value="Submit" onClick="/addcruise">
+                        <label for="7_name">departure time</label>
+                        <input type="text" id="7_name" name="departure_time" placeholder="type in departure time of cruise in the schedule">
+                        <input type="submit" value="Submit">
                       </form>
 			<script language="javascript" type="text/javascript">
+                          function validatedate(inputs)
+                          {
+                             // First check for the pattern
+                             if(!/\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}/.test(inputs))
+                             {    
+                               alert("check the date format");
+                               return false;
+                             }
+
+                             // Parse the date parts to integers
+                             var parts = inputs.split(/\s+/);
+                             var part1=parts[0].split("-");
+                             var part2=parts[1].split(":");
+                             var year = parseInt(part1[0], 10);
+                             var month = parseInt(part1[1], 10);
+                             var day = parseInt(part1[2], 10);
+                             var hour = parseInt(part2[0], 10);
+                             var min = parseInt(part2[1], 10);
+                            
+                          if(hour<0||hour>24||min<0||min>59)
+                          { alert("check hour min format"); 
+                            return false; };
+
+                          // Check the ranges of month and year
+                          if(year < 1000 || year > 3000 || month == 0 || month > 12)
+                          { alert("check year month format, year is in [1000,3000]"); 
+                            return false; };
+
+                          var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+                          // Adjust for leap years
+                          if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+                              monthLength[1] = 29;
+
+                          // Check the range of the day
+                          if(!(day > 0 && day <= monthLength[month - 1]))
+                          { alert("check day format, there probably no extra day in that year"); 
+                            return false; };
+                           return true;
+                        };
 			  function validate1()
 			  {
-			     var field1 = document.getElementById("1_name");
-			     if (isNaN(field1.value))
+			     if (isNaN($("#1_name").val()) || parseInt($("#1_name").val()) < 0 )
 			     {
-				   alert("value of cost," + field1.value + " is invalid");
+				   alert("value of cost," + $("#1_name").val() + " is invalid");
 
 				  // Change the value back to the previous valid answer
-				 return false;
+				    return false;
 			     }
-			     var field2 = document.getElementById("2_name");
+			     
+                  
+                 if (isNaN($("#2_name").val())||parseInt($("#2_name").val()) < 0 || (parseInt($("#2_name").val())-$("#2_name").val()!=0 ))
+			     {
+				   alert("value of number of stops," + $("#2_name").val() + " is invalid ");
+				   // Change the value back to the previous valid answer
+				   return false;
+			     } 
+                  
 			     if (isNaN($("#5_name").val())||parseInt($("#5_name").val()) < 0)
 			     {
-				   alert("value of number of stops," + field2.value + " is invalid ");
+				   alert("value of ship id," + $("#5_name").val() + " is invalid ");
 
 				  // Change the value back to the previous valid answer
 				 return false;
 			     }
+                  
+                  
 
-			     if (isNaN(field2.value)||parseInt(field2.value) < 0 | (parseInt(field2.value)-field2.value!=0 ))
-			     {
-				   alert("value of number of stops," + field2.value + " is invalid ");
-
-				  // Change the value back to the previous valid answer
-				 return false;
-			     }
 			     // Save the valid input
-			     return true;
+                 if (isNaN($("#6_name").val())||parseInt($("#6_name").val()) < 0 || (parseInt($("#6_name").val())-$("#6_name").val()!=0 ))
+			     {
+				    alert("value of captain id," + $("#6_name").val() + " is invalid ");
+				    // Change the value back to the previous valid answer
+				    return false;
+			     }
+                 if(!$("#3name").val() || !$("#4name").val()){
+                     alert("The form is incompleted");
+                     return false;
+                 }
+                 return validatedate($("#7_name").val());
+                 
 			  };
 			   $("#cruise_form").submit((event) => {
 				event.preventDefault();
-				if (validate1()()) {
+				if (validate1()) {
 					$.post("/addcruise", $("#cruise_form").serialize())
 					.done(()=>{alert("succeed")})
 					.fail(function (jqXHR, textStatus, errorThrown) {

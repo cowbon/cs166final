@@ -77,9 +77,9 @@
                     <div class="row">
                       <form id="delete_form" enctype="multipart/form-data">
                         <label for="fname">Cruise id</label>
-                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise id" onblur="validate1();">
+                        <input type="text" id="fname" name="cruise_id" placeholder="type in cruise id">
                         <label for="lname">Customer id</label>
-                        <input type="text" id="lname" name="ship_id" placeholder="type in customer id" onblur="validate1();">
+                        <input type="text" id="lname" name="customer_id" placeholder="type in customer id">
                         <input type="submit" value="Submit">
                       </form>
                       <div style="text-align:center">
@@ -87,16 +87,36 @@
                           <a href="CustomerSelection" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
                       <script type="text/javascript">
-2                           $("#delete_form").submit((event)=>{
+                          function validate1(){
+			              //var field1 = document.getElementById("fname");
+			              //var field2 = document.getElementById("lname");
+			              if (isNaN($("#fname").val())||parseInt($("#fname").val()) < 0 | (parseInt($("#fname").val())-$("#fname").val()!=0 ) )
+			              {
+				           alert("value of Cruise id," + $("#fname").val() + " is invalid");
+
+				           // Change the value back to the previous valid answer
+				          return false;
+			              }
+			              if( isNaN($("#lname").val())|| parseInt($("#lname").val()) < 0 | (parseInt($("#lname").val())-$("#lname").val()!=0 ))
+			              {
+				 
+				          alert("value of Customer id," + $("#lname").val() + " is invalid");
+				          return false;
+			              }
+
+			              // Save the valid input
+			              return true;
+			            };
+                           $("#delete_form").submit((event)=>{
                              event.preventDefault();
                              $("#table > tbody").empty();
                                $.get("/reservation"+$("#fname").val()+"/"+$("#lname").val()).done((data) => {
                                    data.forEach((item) => {
-					                  $cancel.(item["cruise_id"],item['ship_id']);
+					                  $cancel.(item["cruise_id"],item['customer_id']);
                                       window.alert("delete "+$("#fname").val()+","+$("#lname").val()]);
 				                  });
                                })});
-9                      </script>
+                      </script>
                     </div>
                   </div>
                 </div>

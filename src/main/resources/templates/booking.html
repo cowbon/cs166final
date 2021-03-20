@@ -48,10 +48,6 @@
                   <div style="text-align:center">
                     <h2 id="contact">Booking</h2>
                   </div>
-                  <div class="row">
-                    <!--div class="column">
-                      <img src="img/footer.jpg" style="width:100%">
-                    </div-->
                     <div class="row">
                       <form id="booking_form" enctype=”multipart/form-data” name=”BookingForm”>
                         <label for="fname">Cruise id</label>
@@ -66,19 +62,19 @@
                       </div>
                       <script type="text/javascript">
 			  function validate1(){
-			     var field1 = document.getElementById("fname");
-			     var field2 = document.getElementById("lname");
-			     if (isNaN(field1.value)||parseInt(field1.value) < 0 | (parseInt(field1.value)-field1.value!=0 ) )
+			     //var field1 = document.getElementById("fname");
+			     //var field2 = document.getElementById("lname");
+			     if (isNaN($("#fname").val())||parseInt($("#fname").val()) < 0 | (parseInt($("#fname").val())-$("#fname").val()!=0 ) )
 			     {
-				  window.alert("value of Cruise id," + field1.value + " is invalid");
+				  alert("value of Cruise id," + $("#fname").val() + " is invalid");
 
 				  // Change the value back to the previous valid answer
 				 return false;
 			     }
-			     if( parseInt(field2.value) < 0 | (parseInt(field2.value)-field2.value!=0 ))
+			     if( isNaN($("#lname").val())|| parseInt($("#lname").val()) < 0 | (parseInt($("#lname").val())-$("#lname").val()!=0 ))
 			     {
 				 
-				 alert("value of Customer id," + field2.value + " is invalid");
+				 alert("value of Customer id," + $("#lname").val() + " is invalid");
 				 return false;
 			     }
 
@@ -95,10 +91,7 @@
 			   });
                       </script>
                     </div>
-                  </div>
-                </div>
-          </div>
-    </div>
+            </div>
     <!-- Default code for Personal website -->
     <!-- End of Code -->
     </body>

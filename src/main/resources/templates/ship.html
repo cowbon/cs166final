@@ -67,27 +67,28 @@
                           <a href="staff" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
                       </div>
                     </form>
-                    <script type="text/javascript">
+                    <script type="text/javascript">   
                              function validate1()
                              {
-                                 var field1 = document.getElementById("3_name");
-                                 if (isNaN(field1.value)||parseInt(field1.value) < 0 | (parseInt(field1.value)-field1.value!=0 ))
+                                 //var field1 = document.getElementById("3_name");
+                                 if (isNaN($("#3_name").val())||parseInt($("#3_name").val()) < 0 | (parseInt($("#3_name").val())-$("#3_name").val()!=0 ))
                                  {
-                                        alert("value of Age," + field1.value + " is invalid");
+                                        alert("value of Age," + $("#3_name").val() + " is invalid");
 
                                       // Change the value back to the previous valid answer
                                       return false;
                                  }
-                                 var field2 = document.getElementById("4_name");
-                                 if (isNaN(field2.value)||parseInt(field2.value) < 0 | (parseInt(field2.value)-field2.value!=0 ))
+                                 //var field2 = document.getElementById("4_name");
+                                 if (isNaN($("#4_name").val())||parseInt($("#4_name").val()) < 0 | (parseInt($("#4_name").val())-$("#4_name").val()!=0 ))
                                  {
-                                     alert("value of Seats," + field2.value + " is invalid");
+                                     alert("value of Seats," + $("#4_name").val() + " is invalid");
 
                                      // Change the value back to the previous valid answer
                                      return false;
                                  }
 				 if (!$("#1_name").val() || !$("#2_name").val()) {
 					alert("The form is incompleted");
+                    return false;
 				 } 
 
                                  // Save the valid input

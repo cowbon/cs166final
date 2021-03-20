@@ -52,7 +52,7 @@
                         <label for="fname">Cruise number</label>
                         <input type="text" id="fname" name="cruise_id" placeholder="type in cruise number">
                         <label for="lname">Date</label>
-                        <input type="date" id="lname" name="date" placeholder="type in Date">
+                        <input type="text" id="lname" name="date" placeholder="type in Date">
                         <input type="submit" value="Submit">
                         <div style="text-align:center">
                           <p>   </p>
@@ -67,6 +67,49 @@
                       </table>
                       </form>   
                       <script language="javascript" type="text/javascript">
+                          function validatedate(inputs)
+                          {
+                             // First check for the pattern
+                             if(!/\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}/.test(inputs))
+                             {    
+                               alert("check the date format");
+                               return false;
+                             }
+
+                             // Parse the date parts to integers
+                             var parts = inputs.split(/\s+/);
+                             var part1=parts[0].split("-");
+                             var part2=parts[1].split(":");
+                             var year = parseInt(part1[0], 10);
+                             var month = parseInt(part1[1], 10);
+                             var day = parseInt(part1[2], 10);
+                             var hour = parseInt(part2[0], 10);
+                             var min = parseInt(part2[1], 10);
+                            
+                          if(hour<0||hour>24||min<0||min>59)
+                          { alert("check hour min format"); 
+                            return false; };
+
+                          // Check the ranges of month and year
+                          if(year < 1000 || year > 3000 || month == 0 || month > 12)
+                          { alert("check year month format, year is in [1000,3000]"); 
+                            return false; };
+
+                          var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+                          // Adjust for leap years
+                          if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+                              monthLength[1] = 29;
+
+                          // Check the range of the day
+                          if(!(day > 0 && day <= monthLength[month - 1]))
+                          { alert("check day format, there probably no extra day in that year"); 
+                            return false; };
+                           return true;
+                          };
+                          
+                         
+                          
                              function validate()
                              {
                                  var field1 = document.getElementById("fname");
@@ -77,8 +120,7 @@
                                  // Change the value back to the previous valid answer
                                  	return false;
                                  }
-
-                                 return true;
+                                 return  validatedate($("#lname").val());
                             };
 			      $("#cruise_form").submit((event)=>{
 				event.preventDefault();
