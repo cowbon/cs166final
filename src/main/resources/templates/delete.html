@@ -106,11 +106,19 @@
                              $("#delete_form").submit((event) => {
 				            event.preventDefault();
 				           if (validate1()) {
-				           $.delete("/reservation", $("#delete_form").serialize())
-				           .done((data) => {alert("succeeded")})
-				           .fail((data) => {alert(data)});
+					      console.log("/reservation/" + $('#lname').val() + "/" + $("#fname").val());
+					      $.ajax({
+						    url: "/reservation/" + $('#lname').val() + "/" + $("#fname").val(),
+						    type: 'DELETE',
+						    success: function(response) {
+							alert(response);
+						    },
+						    error: function(response) {
+							alert("Cannot cancel");
+						    }
+						});
 				           }
-				           });
+			       });
                       </script>
                     </div>
                   </div>

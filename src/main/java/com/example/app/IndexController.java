@@ -201,6 +201,9 @@ public class IndexController {
 			List<List<String>> res = executeQueryAndReturnResult("select * from CruiseInfo where CruiseInfo.cruise_id=" + cruiseId);
 			if (res.isEmpty())
 			    return ResponseEntity.ok("No such cruiseId");
+			res = executeQueryAndReturnResult("select * from Reservation where cid=" + cruiseId + " and ccid=" + customerId +";");
+			if (!res.isEmpty())
+			    return ResponseEntity.ok("Already booked");
 			res = executeQueryAndReturnResult(query);
 			int remaining = Integer.parseInt(res.get(0).get(0));
 			if (remaining < 1)
