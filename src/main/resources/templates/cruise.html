@@ -68,25 +68,25 @@
                           function validatedate(inputs)
                           {
                              // First check for the pattern
-                             if(!/\d{4}\-\d{2}\-\d{2}\s+\d{2}:\d{2}/.test(inputs))
+                             if(!/\d{4}\-\d{2}\-\d{2}/.test(inputs))
                              {    
                                alert("check the date format");
                                return false;
                              }
 
                              // Parse the date parts to integers
-                             var parts = inputs.split(/\s+/);
-                             var part1=parts[0].split("-");
-                             var part2=parts[1].split(":");
-                             var year = parseInt(part1[0], 10);
-                             var month = parseInt(part1[1], 10);
-                             var day = parseInt(part1[2], 10);
-                             var hour = parseInt(part2[0], 10);
-                             var min = parseInt(part2[1], 10);
+                             var parts1 = inputs.split("-");
+                             //var part1=parts[0].split("-");
+                             //var part2=parts[1].split(":");
+                             var year = parseInt(parts1[0], 10);
+                             var month = parseInt(parts1[1], 10);
+                             var day = parseInt(parts1[2], 10);
+                             //var hour = parseInt(part2[0], 10);
+                             //var min = parseInt(part2[1], 10);
                             
-                          if(hour<0||hour>24||min<0||min>59)
-                          { alert("check hour min format"); 
-                            return false; };
+                          //if(hour<0||hour>24||min<0||min>59)
+                          //{ alert("check hour min format"); 
+                            //return false; };
 
                           // Check the ranges of month and year
                           if(year < 1000 || year > 3000 || month == 0 || month > 12)
@@ -140,10 +140,10 @@
 				    // Change the value back to the previous valid answer
 				    return false;
 			     }
-                 if(!$("#3name").val() || !$("#4name").val()){
-                     alert("The form is incompleted");
-                     return false;
-                 }
+                 //if(!$("#3name").val() || !$("#4name").val()){
+                     //alert("The form is incompleted");
+                     //return false;
+                 //}
                  return validatedate($("#7_name").val());
                  
 			  };
